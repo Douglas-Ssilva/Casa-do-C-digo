@@ -1,0 +1,17 @@
+@charset "ISO-8859-1";
+
+.ui-ribbon .ui-colorpicker .ui-button {
+	height: 24px;
+}
+
+.ui-icon.ui-ribbonicon-new {
+	margin-left: -10px;
+	margin-top: -20px;
+	background-image:
+		url("https://www.primefaces.org/showcase/javax.faces.resource/demo/images/icon/new.png.xhtml");
+}
+
+.ui-icon.ui-ribbonicon-save {
+	background-image:
+		url("https://www.primefaces.org/showcase/javax.faces.resource/demo/images/icon/save.png.xhtml");
+}

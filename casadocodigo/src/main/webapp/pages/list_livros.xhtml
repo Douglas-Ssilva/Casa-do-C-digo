@@ -1,0 +1,51 @@
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:h="http://xmlns.jcp.org/jsf/html"
+					xmlns:f="http://xmlns.jcp.org/jsf/core"
+					xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+					template="/_templates/admin_template.xhtml">
+
+
+<ui:param name="lista" value="active"/>
+
+	<ui:define name="body">
+			<h1>Lista de Livros</h1>
+			
+			<h:dataTable value="#{livroListaBean.livros}" var="livro" class="table table-bordered table-striped table-hover">
+				<h:column>
+					<f:facet name="header">Titulo</f:facet>
+					<h:outputLabel value="#{livro.titulo}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputLabel value="#{livro.descricao}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Páginas</f:facet>
+					<h:outputLabel value="#{livro.numeroPaginas}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Preço</f:facet>
+					<h:outputLabel value="#{livro.preco}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data de Publicação</f:facet>
+					<h:outputLabel value="#{livro.dataPublicacao.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputLabel>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Autores</f:facet>
+					<ui:repeat var="autor" value="#{livro.autores}">
+						<h:outputLabel value="#{autor.nome},"/>
+					</ui:repeat>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Capa do Livro</f:facet>
+					<img src="#{request.contextPath}/file/#{livro.capaPath}" alt="#{livro.titulo}" height="20%" width="25%"/>
+					<a href="#{request.contextPath}/file/#{livro.capaPath}">
+						<i class="fa fa-search"/>
+					</a>				
+				</h:column>
+			</h:dataTable>
+	</ui:define>
+</ui:composition>

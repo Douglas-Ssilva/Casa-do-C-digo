@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Casa do Código</title>
+	<h:outputStylesheet library="css" name="style-admin2.css"/>
+	<h:outputScript library="js" name="dataMask.js"/>
+	
+	<link rel="stylesheet" href="https://www.um.es/docencia/barzana/materializecss/css/prism.css" />
+	<link href="https://www.um.es/docencia/barzana/materializecss/css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	  
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/imagens/favicon.ico" type="image/ico" />
+</h:head>
+
+<h:body style="background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);">
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Cadastro</a></li>
+            <li role="presentation"><h:link value="Lista" outcome="list_livros"/></li>
+            <li role="presentation"><a href="#">Contact</a></li>
+            <li role="presentation"><a href="../index.xhtml">Home</a></li>
+          </ul>
+        </nav>
+        <h:graphicImage library="img" name="child.jpg" style="width: 25%; heigth: 20%;"/>
+      </div>
+      </div>
+
+<div id="select" class="section scrollspy">
+	<div class="row">
+	<h1>Cadastro de Livros</h1>
+	<br/>
+		<!-- Quando trabalho com file tenho que usar esse multipart -->
+		<h:form id="form_cadastro" enctype="multipart/form-data" styleClass="col s12">
+				<div class="row">
+				 <div class="input-field col s12">
+					<h:outputLabel value="Title: " for="campo_title"/>
+					<h:inputText id="campo_title" value="#{livroBean.livro.titulo}" styleClass="validate"/>
+					<h:message for="campo_title"/>
+				</div>
+			
+				<div class="input-field col s12"> 
+					<h:outputLabel value="Descrição: "/>
+					<h:inputTextarea id="campo_text_area" rows="5" cols="20" value="#{livroBean.livro.descricao}"  styleClass="materialize-textarea"/>
+					<h:message for="campo_text_area"/>
+				</div>
+				<div class="input-field col s12">
+					<h:outputLabel value="Número de Páginas: "/>
+					<h:inputText id="campo_num_paginas" value="#{livroBean.livro.numeroPaginas}" required="true" styleClass="validate">
+						
+					</h:inputText>
+					<h:message for="campo_num_paginas"/>
+				</div>
+				<div class="input-field col s12">
+					<h:outputLabel value="Preço: "/>
+					<h:inputText id="campo_preco" value="#{livroBean.livro.preco}" required="true" styleClass="validate"/>
+					<h:message for="campo_preco"/>
+				</div>
+				<div class="input-field col s12 m6">
+					<h:selectManyListbox id="campo_list_autores" value="#{livroBean.livro.autores}" converter="converterAutor" styleClass="validate">
+						<f:selectItems value="#{livroBean.autores}" var="autor" 
+									   itemLabel="#{autor.nome}" itemValue="#{autor}"/>
+					</h:selectManyListbox>
+					<h:outputLabel value="Autores: "/>
+					<h:message for="campo_list_autores"/>
+				</div>
+<!-- 				<div class="input-field col s12"> -->
+<!-- 					<h:outputLabel value="Data de Publicação: "/> -->
+<!-- 					<h:inputText id="data" value="#{livroBean.livro.dataPublicacao}" onkeypress="verifyData(this)" styleClass="validate" -->
+<!-- 								maxlength="10"/> -->
+<!-- 					<h:message for="data"/> -->
+<!-- 				</div> -->
+				<div class="input-field col s12">
+					<h:outputLabel value="Capa do Livro"/>
+					<h:inputFile id="file" value= "#{livroBean.capaLivro}" required="true" styleClass="validate"/> 
+					<h:message for="file"/>
+				</div>
+				</div>
+				<h:commandButton value="Cadastrar" action="#{livroBean.save}" styleClass="btn btn-primary"/>
+				<br/>
+				<br/>
+		</h:form>
+				</div>
+	</div>
+	
+	<script src="https://cdn.transifex.com/live.js"/>
+</h:body>
+</html>

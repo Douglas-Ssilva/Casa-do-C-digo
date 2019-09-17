@@ -1,0 +1,12 @@
+.homeCall {
+	padding-top: .8em;
+	padding-bottom: .8em;
+/* 	background-color: #400040; */
+	background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+	font-family: "open-sans", sans-serif;
+	font-size: 1.8em;
+	font-weight: 600;
+	line-height: 1.1;
+	color: #fff;
+	text-align: center;
+}

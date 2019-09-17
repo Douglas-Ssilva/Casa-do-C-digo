@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  template="/_templates/admin_template.xhtml">
+
+<!-- Passando param p template -->
+<ui:param name="cadastro" value="active"/>
+
+	<ui:define name="body">
+		<h1>Cadastro de Livros</h1>
+		<br/>
+			<!-- Quando trabalho com file tenho que usar esse multipart -->
+			<h:form id="form_cadastro" enctype="multipart/form-data">
+					<div class="form-group">
+						<h:outputLabel value="Title: "/>
+						<h:inputText id="campo_title" value="#{livroBean.livro.titulo}" styleClass="form-control"/>
+						<h:message for="campo_title"/>
+					</div>
+					<div class="form-group"> 
+						<h:outputLabel value="Descrição: "/>
+						<h:inputTextarea id="campo_text_area" rows="5" cols="20" value="#{livroBean.livro.descricao}"  styleClass="form-control"/>
+						<h:message for="campo_text_area"/>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Número de Páginas: "/>
+						<h:inputText id="campo_num_paginas" value="#{livroBean.livro.numeroPaginas}" required="true" styleClass="form-control">
+							
+						</h:inputText>
+						<h:message for="campo_num_paginas"/>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Preço: "/>
+						<h:inputText id="campo_preco" value="#{livroBean.livro.preco}" required="true" styleClass="form-control">
+						</h:inputText>
+						<h:message for="campo_preco"/>
+					</div>
+					
+					<div class="form-group">
+						<h:outputLabel value="Autores: "/>
+						<h:selectManyListbox id="campo_list_autores" value="#{livroBean.livro.autores}" converter="converterAutor" styleClass="form-control">
+							<f:selectItems value="#{livroBean.autores}" var="autor" 
+										   itemLabel="#{autor.nome}" itemValue="#{autor}"/>
+						</h:selectManyListbox>
+						
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Data de Publicação: "/>
+						<h:inputText id="data" value="#{livroBean.livro.dataPublicacao}" onkeypress="verifyData(this)" styleClass="form-control"
+									maxlength="10">
+						</h:inputText>
+						<h:message for="data"/>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Capa do Livro"/>
+						<h:inputFile id="file" value= "#{livroBean.capaLivro}" required="true" styleClass="form-control"/> 
+						<h:message for="file"/>
+					</div>
+					<h:commandButton value="Cadastrar" action="#{livroBean.save}" styleClass="btn btn-primary"/>
+					<br/>
+					<br/>
+			</h:form>
+					
+		<h:outputScript library="js" name="dataMask.js"/>
+	</ui:define>
+</ui:composition>

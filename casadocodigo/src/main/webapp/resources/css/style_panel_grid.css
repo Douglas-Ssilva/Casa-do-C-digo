@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+.ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+	text-align: left;
+}
+
+h3{
+	margin-left: 100px;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" 
+		     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="casadocodigo-dev" transaction-type="JTA">
+		<description>Dev persistence unit</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- java transaction api || JNDI -->
+		<jta-data-source>java:jboss/datasources/casadocodigoDS</jta-data-source>
+		
+		<!-- Informando p Hibernate que quero fazer cache. Eu seleciono quem cachear -->
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		
+<!-- <shared-cache-mode>ALL</shared-cache-mode> -->
+<!-- assim nao preciso anotar cada entidade que será cacheada. Mas nem todas entidades devem ser
+	visto que há entidades que precisam de ter os dados sempre atualzados. -->
+		
+<!-- <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode> -->
+<!--Todas entiadades que tiverem @Cacheable(false), não serão cacheadas -->
+			
+		<properties>
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.infinispan.entity.expiration.lifespan" value="900000"/>
+<!-- Colocamos 900000 milisegundos, ou seja, as entidades viverão por 15 minutos no cache. Depois desse tempo será feito um novo SELECT e atualizará a entidade. -->
+
+			<property name="hibernate.cache.infinispan.entity.expiration.max_idle" value="300000"/>
+<!-- Outra propriedade importante é a quantidade máxima de tempo que o cache ficará inativo, sem uso: -->
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+		</properties>
+		
+	</persistence-unit>
+</persistence>

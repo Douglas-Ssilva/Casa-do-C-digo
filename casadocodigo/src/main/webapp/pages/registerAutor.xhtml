@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  template="/_templates/template_register.xhtml">
+	  
+	<ui:define name="header">
+		<h:graphicImage library="img" name="ic_autor.jpg" style="width:20%; height:250px; margin-left:290px;"/>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<h:form id="formRegistration" enctype="multipart/form-data">
+		<p:toolbar style="width: 50%;">
+			<f:facet name="left">Cadastrar Autor</f:facet>
+		</p:toolbar>
+			<p:panel id="panel" style="width:50%;">
+				<p:focus context="panel"/>
+				<h:panelGrid columns="2">
+					<p:outputLabel for="name" value="Name:"/>
+					<p:inputText id="name" value="#{autorBean.autor.nome}" placeholder="Type your name" required="true" requiredMessage="Name is Required!">
+					</p:inputText>
+					<p:outputLabel for="cpf" value="CPF:"/>
+					<p:inputMask id="cpf" value="#{autorBean.autor.cpf}" mask="999.999.999-99" maxlength="14" placeholder="Type your CPF"/>
+					<p:outputLabel for="pass" value="Password:"/>
+					<p:password id="pass" value="#{autorBean.autor.senha}" feedback="true" goodLabel="Password Good!" weakLabel="Password Weak!" 
+								strongLabel="Password Strong!" placeholder="Type your password" redisplay="true"/>
+					<p:outputLabel for="file" value="Enviar foto: "/>
+					<h:inputFile id="file" value="#{autorBean.file}" required="true" requiredMessage="A imagem é obrigatória!"/>
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid columns="2" style="margin-left:105px;">
+					<p:commandButton value="Limpar" icon="fa fa-fw  fa-refresh" process="@this" action="#{autorBean.newAutor}" update="panel">
+						 <f:ajax render="@form" resetValues="true"/>
+					</p:commandButton>
+					<p:commandButton ajax="false" value="Salvar" icon="fa fa-fw fa-save"  actionListener="#{autorBean.save}" update="panel growl :formDataList:dataList"/>
+					<!-- Ajax false para pois dá erro ao enviar file -->
+				</h:panelGrid>
+			</p:panel>
+	</h:form>
+		<br/>
+		
+		<p:toolbar style="width: 49.6%;">
+			<f:facet name="left">Dados dos Autores</f:facet>
+		</p:toolbar>
+		
+		<!-- Usando dataList para paginar -->
+		<h:form id="formDataList">
+			<p:dataList id="dataList" var="livro" value="#{homeBean.ultimosLancamentos()}" paginator="true" rows="5" type="definition" style="width: 50%;">
+				<p:panelGrid columns="2" layout="grid" >
+				    <f:facet name="header">
+				    <img
+							src="#{request.contextPath}/file/#{livro.capaPath}" 
+								height="30%"  alt="#{livro.capaPath}"  title="#{livro.capaPath}" />
+				        <p:commandButton value="Edit" icon="fa fa-fw fa-edit" style="left: 80px;" update=":formRegistration:panel">
+				        	<f:setPropertyActionListener value="#{autor}" target="#{autorBean.autor}"/>
+				        </p:commandButton>
+				        <p:commandButton value="Remove" icon="fa fa-fw fa-remove" style="left: 100px;" update="growl dataList"
+				        		         actionListener="#{autorBean.delete(autor)}"/>
+				    </f:facet>
+				     
+				    <h:outputText value="ID: " />
+				    <h:outputText value="#{livro.id}" style="margin-left: -360px;"/>
+				     
+				    <h:outputText value="Nome: " />
+				    <h:outputText value="#{livro.titulo}" style="margin-left: -360px;"/>
+	
+				    <h:outputText value="CPF: " />
+				    <h:outputText value="#{livro.capaPath}" style="margin-left: -360px;"/>
+				</p:panelGrid>
+			</p:dataList>
+		</h:form>	
+	</ui:define>
+</ui:composition>
