@@ -42,7 +42,7 @@
 		<web-resource-collection>
 			<web-resource-name>administration</web-resource-name> <!-- name unique. Qualquer coisa depois de pages o jaas protege -->
 			<description>URls que levam p admin da loja</description>
-			<url-pattern>/pages/*</url-pattern>
+			<url-pattern>/admin/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
@@ -64,28 +64,4 @@
 	</login-config>
 
 </web-app>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
